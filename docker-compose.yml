@@ -5,14 +5,26 @@ services:
             context: ./node/app1
         ports:
             - "5000:5000"
+        volumes:
+          - ./node/app1:/usr/src/app
     app2:
         build:
             context: ./node/app2
         ports:
             - "5100:5100"
+        volumes:
+          - ./node/app2:/usr/src/app
     nginx:
         restart: always
         build:
             context: ./nginx
         ports:
             - "80:80"
+    ui:
+        restart: always
+        build:
+            context: ./react/ui
+        ports:
+            - "3000:3000"
+        volumes:
+          - ./react/ui:/usr/src/app
