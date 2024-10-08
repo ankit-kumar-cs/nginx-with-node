@@ -14,6 +14,13 @@ services:
             - "5100:5100"
         volumes:
           - ./node/app2:/usr/src/app
+    auth:
+        build:
+            context: ./node/auth
+        ports:
+            - "5200:5200"
+        volumes:
+          - ./node/auth:/usr/src/app
     nginx:
         restart: always
         build:

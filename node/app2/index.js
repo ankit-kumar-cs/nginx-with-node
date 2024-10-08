@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const portNumber = 5100;
-app.get('/app2', (req, res) => {
-  res.send('Basic route coming from App2 app')
+app.get('/app2/info', (req, res) => {
+  res.send('App2 is developed to handle the inventory management')
 })
 
 app.get('/app2/hello', (req, res) => {
