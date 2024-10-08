@@ -37,4 +37,4 @@ app.get('/auth/login', (req, res) => {
   else res.status(404).send('User not found')
 })
 
-app.listen(portNumber, () => console.log(`Login server is up and running on port number: ${portNumber}`));
+app.listen(portNumber, () => console.log(`Auth server is up and running on port number: ${portNumber}`));
