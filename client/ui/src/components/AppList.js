@@ -12,7 +12,7 @@ export const AppList = () => {
 
 	const onClick = async (appName) => {
 		const isSynced = appName === 'app1' ? app1Info.length : app2Info.length;
-		if (isSynced) return;
+		// if (isSynced) return;
 		const appInfo = (await appInfoByName[appName]()).data;
 		console.log('appInfo', appInfo);
 		

@@ -1,37 +1,81 @@
 version: "3.8"
 services:
-    app1:
+    app1-server-1:
         build:
-            context: ./node/app1
+            context: ./server/app1
         ports:
             - "5000:5000"
         volumes:
-          - ./node/app1:/usr/src/app
+          - ./server/app1:/usr/src/app
+        networks:
+          - app_network
+        environment:
+          - SERVER_NAME=app1-server-1
+
+    app1-server-2:
+        build:
+            context: ./server/app1
+        ports:
+            - "5001:5000"
+        volumes:
+          - ./server/app1:/usr/src/app
+        networks:
+          - app_network
+        environment:
+          - SERVER_NAME=app1-server-2
+
+    app1-server-backup:
+        build:
+            context: ./server/app1
+        ports:
+            - "5002:5000"
+        volumes:
+          - ./server/app1:/usr/src/app
+        networks:
+          - app_network
+        environment:
+          - SERVER_NAME=app1-server-backup
+
     app2:
         build:
-            context: ./node/app2
+            context: ./server/app2
         ports:
             - "5100:5100"
         volumes:
-          - ./node/app2:/usr/src/app
+          - ./server/app2:/usr/src/app
+        networks:
+          - app_network
+
     auth:
         build:
-            context: ./node/auth
+            context: ./server/auth
         ports:
             - "5200:5200"
         volumes:
-          - ./node/auth:/usr/src/app
+          - ./server/auth:/usr/src/app
+        networks:
+          - app_network
+
     nginx:
         restart: always
         build:
-            context: ./nginx
+            context: ./server/nginx
         ports:
             - "80:80"
+        networks:
+          - app_network
+
     ui:
         restart: always
         build:
-            context: ./react/ui
+            context: ./client/ui
         ports:
             - "3000:3000"
         volumes:
-          - ./react/ui:/usr/src/app
+          - ./client/ui:/usr/src/app
+        networks:
+          - app_network
+
+networks:
+  app_network:
+    driver: bridge
